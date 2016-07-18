@@ -1,4 +1,4 @@
-# EcoRide
+# Carona Amiga
 
 An academic project about of friendly rides.
 

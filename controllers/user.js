@@ -37,8 +37,8 @@ controller.get('/', function(req, res) {
   });
 });
 
-controller.get('/:email', function(req, res) {
-  User.find({email: req.params.email}, function (err, user){
+controller.get('/:user_id', function(req, res) {
+  User.find({user_id: req.params.user_id}, function (err, user){
     if(err){
       console.error(err);
       res.status(500);
@@ -50,45 +50,48 @@ controller.get('/:email', function(req, res) {
   })
 });
 
+// Session Start
 controller.post('/', function(req, res,next) {
   var current_user = new User();
 
+  //  Current User Build Up
+  req.body.user_id ? current_user.email = req.body.user_id : current_user.user_id = 0;
   req.body.email ? current_user.email = req.body.email : current_user.email = null;
   req.body.username ? current_user.username = req.body.username : current_user.username = null;
   req.body.picture ? current_user.picture = req.body.picture : current_user.picture = null;
   req.body.friends ? current_user.friends = req.body.friends : current_user.friends = null;
-
   req.body.last_signin ? current_user.last_signin = req.body.last_signin : current_user.last_signin = null;
-
   req.body.type ? current_user.type = req.body.type : current_user.type = 0;
 
-  current_user.created_at = new Date();
 
-User.findOne({email: current_user.email}, function (err, user){
+  User.findOne({email: current_user.email}, function (err, user){  
     if(err){
       console.error(err);
       res.status(500);
     }
 
-  if (user == null) {
-    current_user.save(function (err,user){
+    callbackUser = user;
+
+    if (user == null) {
+      current_user.created_at = new Date();
+      current_user.save(function (err,user){
           if(err){
             console.error(err);
             return res.status(500);
-          } 
-        })
-    res.status(200);
-  } else {
-    res.send("Email já cadastrado");
-    res.status(500);
-  }  
-    })
+          }
+      })
+    }
+
+    res.status(200).json(callbackUser); 
+  })
+
 });
 
 //Editar Informações do usuário
-controller.put('/editar/:email', function(req, res){
+controller.put('/editar/:user_id', function(req, res){
 
    // Get our REST or form values. These rely on the "name" attributes
+    var user_id = req.params.user_id;
     var username = req.body.username;
     var picture = req.body.picture;
     var slots = req.body.slots;
@@ -97,7 +100,8 @@ controller.put('/editar/:email', function(req, res){
     var plate = req.body.plate;
     var extra = req.body.extra;    
 
-    User.update({email: req.params.email}, {
+    User.update({user_id: req.params.user_id}, {
+      user_id: user_id,
       username: username,
       picture: picture,
       slots: slots,  
@@ -117,8 +121,8 @@ controller.put('/editar/:email', function(req, res){
 });
 
 //Remove a conta do usuário no sistema 
-controller.delete('/remover/:email', function(req, res, next) {
-  User.remove({email: req.params.email}, function (err, current_user){
+controller.delete('/remover/:user_id', function(req, res, next) {
+  User.remove({user_id: req.params.user_id}, function (err, current_user){
     if(err){
       console.error(err);
       res.status(500);

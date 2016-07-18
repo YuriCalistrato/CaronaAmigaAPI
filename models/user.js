@@ -7,13 +7,14 @@ var userSchema = {}
 // Schema -> User :
 
 userSchema =  mongoose.Schema({
+    user_id: {type: Number, unique : true, required: true, dropDups: true},
     email: {type: String, unique : true, required: true, dropDups: true},
     username: { type: String, required : true},
     picture: String,
     reputation_level: Number,
     type: Number, //type 0 = Usuário Normal, type 1 = Administrador
 
-    friends: [String], // Friends IDs
+    friends: [Number], // Friends IDs
 
     last_signin: Date,
     created_at: Date,

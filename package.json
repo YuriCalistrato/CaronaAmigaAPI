@@ -1,0 +1,38 @@
+{
+  "name": "EcoRide",
+  "version": "0.1.0",
+  "description": "Academic Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "1.15.0",
+    "connect-mongo": "1.1.0",
+    "cookie-parser": "1.4.1",
+    "cool-ascii-faces": "1.3.3",
+    "cors": "2.7.1",
+    "ejs": "2.3.3",
+    "express": "4.13.3",
+    "express-session": "1.13.0",
+    "mongodb": "2.1.7",
+    "mongoose": "4.4.4",
+    "passport": "0.3.2",
+    "passport-facebook": "2.1.0",
+    "passport-google-oauth2": "0.1.6",
+    "passport-oauth": "1.0.0"
+  },
+  "engines": {
+    "node": "4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YuriCalistrato/ER-Api"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}

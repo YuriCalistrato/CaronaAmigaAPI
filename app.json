@@ -1,0 +1,8 @@
+{
+  "name": "EcoRide",
+  "description": "Academic Project",
+  "repository": "https://github.com/YuriCalistrato/ER-Api",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static"],
+  "image": "heroku/nodejs"
+}
